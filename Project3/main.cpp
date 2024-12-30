@@ -3,15 +3,11 @@
 #include "User.h"
 #include "Exercise.h"
 #include "Meal.h"
+#include "CalorieCalculator.h"
 
-//void showMainMenu() {
-//    std::cout << "Welcome to the Calorie Tracker!\n";
-//    std::cout << "1. Register\n";
-//    std::cout << "2. Login\n";
-//    std::cout << "3. Exit\n";
-//    std::cout << "Please select an option: ";
-//}
+User loggedInUser;
 
+// Function to handle user registration
 void handleRegister(const std::string& filename) {
     std::string username, password, gender, activity, goal, accountType;
     int age;
@@ -46,12 +42,13 @@ void handleRegister(const std::string& filename) {
 
     User newUser(username, password, gender, age, height, weight, activity, goal, accountType);
     if (User::registerUser(filename, newUser)) {
-        // Успешна регистрация
+        std::cout << "Registration successful!\n";
     }
 }
 
-void handleLogin(const std::string& filename) {
-    std::string username, password;
+// Function to handle user login
+bool handleLogin(const std::string& filename, std::string& username) {
+    std::string password;
     std::cout << "Enter username: ";
     std::cin >> username;
 
@@ -59,26 +56,30 @@ void handleLogin(const std::string& filename) {
     std::cin >> password;
 
     if (User::loginUser(filename, username, password)) {
+        loggedInUser = User::getUserFromFile(filename, username);
         std::cout << "Login successful!\n";
-        // Може да продължиш с функционалността за добавяне на хранения, тренировки и т.н.
+        return true;
     }
     else {
         std::cout << "Invalid username or password.\n";
+        return false;
     }
 }
 
+// Function to show the main menu
 void showMainMenu() {
     std::cout << "\nWelcome to the Calorie Tracker!\n";
     std::cout << "1. View Daily Report\n";
     std::cout << "2. Add Meal\n";
     std::cout << "3. Add Exercise\n";
-    std::cout << "4. View Progress\n";
+    std::cout << "4. View recommended daily calorie intake\n";
     std::cout << "5. Logout\n";
     std::cout << "Please select an option: ";
 }
 
+// Function to view the daily report
 void viewDailyReport(const std::string& username) {
-    // Прочитане на дневен отчет: калории от хранения и тренировки
+    // Calculate total calories from meals and exercises
     float totalCalories = Meal::getTotalCalories(username, "meals.txt");
     float totalCaloriesBurned = Exercise::getTotalCaloriesBurned(username, "exercises.txt");
 
@@ -88,6 +89,7 @@ void viewDailyReport(const std::string& username) {
     std::cout << "Net Calories: " << (totalCalories - totalCaloriesBurned) << " kcal\n";
 }
 
+// Function to add a meal
 void addMeal(const std::string& username) {
     std::string name;
     float calories;
@@ -104,6 +106,7 @@ void addMeal(const std::string& username) {
     std::cout << "Meal added successfully!\n";
 }
 
+// Function to add an exercise
 void addExercise(const std::string& username) {
     std::string name;
     float caloriesBurned;
@@ -120,16 +123,47 @@ void addExercise(const std::string& username) {
     std::cout << "Exercise added successfully!\n";
 }
 
-void viewProgress(const std::string& username) {
-    // Показване на прогрес към целта
-    // За целта можем да използваме нещо като дневен лимит на калории и да го сравним с текущите стойности.
-    std::cout << "Progress feature coming soon...\n";
+// Function to view recommended daily calorie
+void viewRecommendedCalorieIntake(const std::string& username) {
+
+    float targetCalories = CalorieCalculator::calculateTargetCalories(loggedInUser);
+
+    // Извеждаме резултата
+    std::cout << "\nYour recommended daily calorie intake is: " << targetCalories << " kcal\n";
+
 }
 
 int main() {
-    std::string username = "user123";  // Пример за потребител (след логване)
-
+    std::string filename = "users.txt";
+    std::string username;
+    bool loggedIn = false;
     int choice;
+
+    // Show login or register options until user logs in
+    while (!loggedIn) {
+        std::cout << "Welcome to the Calorie Tracker! Please select an option:\n";
+        std::cout << "1. Register\n";
+        std::cout << "2. Login\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Please select an option: ";
+        std::cin >> choice;
+
+        switch (choice) {
+        case 1:
+            handleRegister(filename);
+            break;
+        case 2:
+            loggedIn = handleLogin(filename, username);
+            break;
+        case 3:
+            std::cout << "Exiting program.\n";
+            return 0;
+        default:
+            std::cout << "Invalid option. Please try again.\n";
+        }
+    }
+
+    // Once logged in, show the main menu
     while (true) {
         showMainMenu();
         std::cin >> choice;
@@ -145,7 +179,7 @@ int main() {
             addExercise(username);
             break;
         case 4:
-            viewProgress(username);
+            viewRecommendedCalorieIntake(username);
             break;
         case 5:
             std::cout << "Logged out successfully.\n";

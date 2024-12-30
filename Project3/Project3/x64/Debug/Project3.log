@@ -1,1 +1,47 @@
-﻿  Project3.vcxproj -> C:\Users\Admin\source\repos\Project3\Project3\x64\Debug\Project3.exe
+﻿  main.cpp
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(11,76): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(14,76): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(21,35): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(27,35): warning C4305: '=': truncation from 'double' to 'float'
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(30,35): warning C4305: '=': truncation from 'double' to 'float'
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(33,35): warning C4305: '=': truncation from 'double' to 'float'
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(59,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(60,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(61,42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(64,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(65,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(66,42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(69,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(70,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\Admin\source\repos\Project3\Project3\CalorieCalculator.h(71,42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+  Project3.vcxproj -> C:\Users\Admin\source\repos\Project3\Project3\x64\Debug\Project3.exe

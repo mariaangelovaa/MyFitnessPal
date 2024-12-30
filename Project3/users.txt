@@ -1,1 +1,2 @@
 mimi test123 F 20 165 55 Light Lose Satndard
+kalina test456 F 45 167 56 Active Maintain Premium

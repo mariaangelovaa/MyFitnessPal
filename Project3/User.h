@@ -19,7 +19,11 @@ public:
     std::string goal;
     std::string account_type;
 
-    // Конструктор за потребителски данни
+    // Default constructor
+    User()
+        : username(""), password(""), gender(""), age(0), height(0.0f), weight(0.0f), activity_level(""), goal(""), account_type("") {}
+
+    // Constructor with parameters
     User(std::string uname, std::string pass, std::string gen, int ag, float h, float w, std::string activity, std::string g, std::string account)
         : username(uname), password(pass), gender(gen), age(ag), height(h), weight(w), activity_level(activity), goal(g), account_type(account) {}
 
@@ -67,6 +71,27 @@ public:
             }
         }
         return false; // Невалидно потребителско име или парола
+    }
+
+    // Функция за извличане на потребителския обект от файла
+    static User getUserFromFile(const std::string& filename, const std::string& uname) {
+        std::ifstream infile(filename);
+        std::string line;
+        while (std::getline(infile, line)) {
+            std::stringstream ss(line);
+            std::string storedUsername, storedPassword, gender, activityLevel, goal, accountType;
+            int age;
+            float height, weight;
+
+            ss >> storedUsername >> storedPassword >> gender >> age >> height >> weight >> activityLevel >> goal >> accountType;
+
+            // Ако намерим съвпадение на потребителското име, връщаме обект User
+            if (storedUsername == uname) {
+                return User(storedUsername, storedPassword, gender, age, height, weight, activityLevel, goal, accountType);
+            }
+        }
+        // Ако не намерим потребителя, връщаме празен обект (или хвърляме изключение, ако е необходимо)
+        throw std::runtime_error("User not found");
     }
 };
 
