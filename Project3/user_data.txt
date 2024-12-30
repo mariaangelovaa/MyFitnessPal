@@ -1,0 +1,9 @@
+User Info:
+Username: john_doe
+Goal: Maintain
+Total Calories: 2813.3 kcal
+Target Calories: 2813.3 kcal
+Macronutrients:
+Protein: 175.831 g
+Fat: 93.7766 g
+Carbs: 93.7766 g

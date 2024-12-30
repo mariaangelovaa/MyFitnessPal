@@ -1,0 +1,211 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\Project3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Meal.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\Meal.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Exercise.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\Exercise.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\CalorieCalculator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\CalorieCalculator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\CalorieCalculator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\CalorieCalculator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\User.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\User.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\UserManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\UserManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Workout.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\Workout.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Workout.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\Workout.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Meal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\Meal.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\User.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9B926E05-3E94-4C95-AA2F-4C848E2628FC}|Project3\\Project3.vcxproj|solutionrelative:Project3\\User.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Exercise.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Exercise.h",
+              "RelativeDocumentMoniker": "Project3\\Exercise.h",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Exercise.h",
+              "RelativeToolTip": "Project3\\Exercise.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-30T20:42:59.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CalorieCalculator.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\CalorieCalculator.cpp",
+              "RelativeDocumentMoniker": "Project3\\CalorieCalculator.cpp",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\CalorieCalculator.cpp",
+              "RelativeToolTip": "Project3\\CalorieCalculator.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-30T20:36:16.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\main.cpp",
+              "RelativeDocumentMoniker": "Project3\\main.cpp",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\main.cpp",
+              "RelativeToolTip": "Project3\\main.cpp",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-30T20:07:17.26Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserManager.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\UserManager.h",
+              "RelativeDocumentMoniker": "Project3\\UserManager.h",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\UserManager.h",
+              "RelativeToolTip": "Project3\\UserManager.h",
+              "ViewState": "AgIAABEAAAAAAAAAAAAYwB0AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-30T20:02:56.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CalorieCalculator.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\CalorieCalculator.h",
+              "RelativeDocumentMoniker": "Project3\\CalorieCalculator.h",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\CalorieCalculator.h",
+              "RelativeToolTip": "Project3\\CalorieCalculator.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-30T20:02:25.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Workout.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Workout.cpp",
+              "RelativeDocumentMoniker": "Project3\\Workout.cpp",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Workout.cpp",
+              "RelativeToolTip": "Project3\\Workout.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-30T20:01:45.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Meal.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Meal.cpp",
+              "RelativeDocumentMoniker": "Project3\\Meal.cpp",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Meal.cpp",
+              "RelativeToolTip": "Project3\\Meal.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-30T20:01:44.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "User.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\User.cpp",
+              "RelativeDocumentMoniker": "Project3\\User.cpp",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\User.cpp",
+              "RelativeToolTip": "Project3\\User.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-30T20:01:41.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Workout.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Workout.h",
+              "RelativeDocumentMoniker": "Project3\\Workout.h",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Workout.h",
+              "RelativeToolTip": "Project3\\Workout.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-30T20:01:35.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Meal.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Meal.h",
+              "RelativeDocumentMoniker": "Project3\\Meal.h",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\Meal.h",
+              "RelativeToolTip": "Project3\\Meal.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-30T20:01:00.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\User.h",
+              "RelativeDocumentMoniker": "Project3\\User.h",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Project3\\Project3\\User.h",
+              "RelativeToolTip": "Project3\\User.h",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACcAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-30T20:00:38.875Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
