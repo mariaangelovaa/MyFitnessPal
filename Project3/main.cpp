@@ -69,68 +69,74 @@ bool handleLogin(const std::string& filename, std::string& username) {
 // Function to show the main menu
 void showMainMenu() {
     std::cout << "\nWelcome to the Calorie Tracker!\n";
-    std::cout << "1. View Daily Report\n";
-    std::cout << "2. Add Meal\n";
-    std::cout << "3. Add Exercise\n";
-    std::cout << "4. View recommended daily calorie intake\n";
-    std::cout << "5. Logout\n";
+    std::cout << "1. View Daily Report for Today\n";
+    std::cout << "2. View Daily Report for a Specific Date\n";
+    std::cout << "3. Add Meal\n";
+    std::cout << "4. Add Exercise\n";
+    std::cout << "5. View recommended daily calorie intake\n";
+    std::cout << "6. Delete Meals by Date\n";
+    std::cout << "7. Delete Exercises by Date\n";
+    std::cout << "8. Update Meal for Today\n";
+    std::cout << "9. Update Exercise for Today\n";
+    std::cout << "10. Update Physical info\n";
+    std::cout << "11. Logout\n";
     std::cout << "Please select an option: ";
 }
 
 // Function to view the daily report
-void viewDailyReport(const std::string& username) {
-    // Calculate total calories from meals and exercises
-    float totalCalories = Meal::getTotalCalories(username, "meals.txt");
-    float totalCaloriesBurned = Exercise::getTotalCaloriesBurned(username, "exercises.txt");
+void viewDailyReport(const std::string& username, const std::string& date) {
+    // Calculate total calories from meals and exercises for the given date
+    float totalCalories = Meal::getTotalCaloriesForDate(username, date, "meals.txt");
+    float totalCaloriesBurned = Exercise::getTotalCaloriesBurnedForDate(username, date, "exercises.txt");
 
-    std::cout << "\nDaily Report for " << username << ":\n";
+    std::cout << "\nDaily Report for " << username << " on " << date << ":\n";
     std::cout << "Total Calories Consumed: " << totalCalories << " kcal\n";
     std::cout << "Total Calories Burned: " << totalCaloriesBurned << " kcal\n";
     std::cout << "Net Calories: " << (totalCalories - totalCaloriesBurned) << " kcal\n";
 
-    // Display all meals for the day
-    std::cout << "\nMeals for today:\n";
+    // Display all meals for the given date
+    std::cout << "\nMeals for " << date << ":\n";
     std::ifstream mealFile("meals.txt");
     std::string line;
     bool mealFound = false;
     while (std::getline(mealFile, line)) {
         std::stringstream ss(line);
-        std::string storedUsername, name;
+        std::string storedUsername, name, mealDate;
         float calories;
 
-        ss >> storedUsername >> name >> calories;
+        ss >> storedUsername >> name >> calories >> mealDate;
 
-        if (storedUsername == username) {
+        if (storedUsername == username && mealDate == date) {
             std::cout << "Meal: " << name << " | Calories: " << calories << " kcal\n";
             mealFound = true;
         }
     }
 
     if (!mealFound) {
-        std::cout << "No meals recorded for today.\n";
+        std::cout << "No meals recorded for this date.\n";
     }
 
     mealFile.close();
 
-    // Display all exercises for the day
-    std::cout << "\nExercises for today:\n";
+    // Display all exercises for the given date
+    std::cout << "\nExercises for " << date << ":\n";
     std::ifstream exerciseFile("exercises.txt");
     bool exerciseFound = false;
     while (std::getline(exerciseFile, line)) {
         std::stringstream ss(line);
-        std::string storedUsername, name;
+        std::string storedUsername, name, exerciseDate;
         float caloriesBurned;
 
-        ss >> storedUsername >> name >> caloriesBurned;
+        ss >> storedUsername >> name >> caloriesBurned >> exerciseDate;
 
-        if (storedUsername == username) {
+        if (storedUsername == username && exerciseDate == date) {
             std::cout << "Exercise: " << name << " | Calories burned: " << caloriesBurned << " kcal\n";
             exerciseFound = true;
         }
     }
 
     if (!exerciseFound) {
-        std::cout << "No exercises recorded for today.\n";
+        std::cout << "No exercises recorded for this date.\n";
     }
 
     exerciseFile.close();
@@ -211,22 +217,91 @@ int main() {
     // Once logged in, show the main menu
     while (loggedIn) {
         showMainMenu();
+        // Get today's date
+        char buffer[128];
+#ifdef _WIN32  // For Windows
+        FILE* fp = _popen("date /t", "r");
+#else  // For Linux or macOS
+        FILE* fp = popen("date +%Y-%m-%d", "r");
+#endif
+        std::string todayDate = "";
+        if (fp) {
+            fgets(buffer, sizeof(buffer), fp);
+            todayDate = buffer;
+            todayDate = todayDate.substr(0, 10);  // Trim the string to get only the date in YYYY-MM-DD format
+            fclose(fp);
+        }
         std::cin >> choice;
 
         switch (choice) {
         case 1:
-            viewDailyReport(username);
+
+            viewDailyReport(username, todayDate);
             break;
-        case 2:
+        case 2: {
+            std::string date;
+            std::cout << "Enter date (YYYY-MM-DD) to view the report: ";
+            std::cin >> date;
+            viewDailyReport(username, date);  // Call the new version of viewDailyReport with a specific date
+            break;
+        }
+        case 3:
             addMeal(username);
             break;
-        case 3:
+        case 4:
             addExercise(username);
             break;
-        case 4:
+        case 5:
             viewRecommendedCalorieIntake(username);
             break;
-        case 5:
+        case 6: {
+            std::string date;
+            std::cout << "Enter date to delete meals (YYYY-MM-DD): ";
+            std::cin >> date;
+            Meal::deleteMealsByDate(username, date, "meals.txt");
+            std::cout << "Meals for " << date << " deleted successfully.\n";
+            break;
+        }
+        case 7: {
+            std::string date;
+            std::cout << "Enter date to delete exercises (YYYY-MM-DD): ";
+            std::cin >> date;
+            Exercise::deleteExercisesByDate(username, date, "exercises.txt");
+            std::cout << "Exercises for " << date << " deleted successfully.\n";
+            break;
+        }
+        case 8: {
+            std::string name;
+            float calories;
+            std::cout << "Enter meal name: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::cout << "Enter new calories: ";
+            std::cin >> calories;
+            Meal meal(name, calories);
+            Meal::updateMeal(username, meal, "meals.txt");
+            std::cout << "Meal updated successfully!\n";
+            break;
+        }
+        case 9: {
+            std::string name;
+            float caloriesBurned;
+            std::cout << "Enter exercise name: ";
+            std::cin.ignore();
+            std::getline(std::cin, name);
+            std::cout << "Enter new calories burned: ";
+            std::cin >> caloriesBurned;
+            Exercise exercise(name, caloriesBurned);
+            Exercise::updateExercise(username, exercise, "exercises.txt");
+            std::cout << "Exercise updated successfully!\n";
+            break;
+        }
+        case 10: {
+            User::updateUserPhysicalInfo("users.txt", username);  // Update user physical info
+            loggedInUser = User::getUserFromFile(filename, username);
+            break;
+        }
+        case 11:
             std::cout << "Logged out successfully.\n";
             loggedIn = false;  // Reset login status to false
             break;  // Return to the login/register menu

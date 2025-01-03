@@ -93,6 +93,77 @@ public:
         // Ако не намерим потребителя, връщаме празен обект (или хвърляме изключение, ако е необходимо)
         throw std::runtime_error("User not found");
     }
+    // Method to update user's physical info
+    static bool updateUserPhysicalInfo(const std::string& filename, const std::string& uname) {
+        std::ifstream infile(filename);
+        std::vector<std::string> lines;
+        std::string line;
+        bool userFound = false;
+
+        // Read the file into a vector of lines
+        while (std::getline(infile, line)) {
+            lines.push_back(line);
+        }
+
+        // Search for the user and update the physical info
+        for (auto& line : lines) {
+            std::stringstream ss(line);
+            std::string storedUsername, storedPassword, gender, activityLevel, goal, accountType;
+            int age;
+            float height, weight;
+
+            ss >> storedUsername >> storedPassword >> gender >> age >> height >> weight >> activityLevel >> goal >> accountType;
+
+            if (storedUsername == uname) {
+                userFound = true;
+                // Ask user for new information
+                std::cout << "Enter new gender (current: " << gender << "): ";
+                std::cin >> gender;
+                std::cout << "Enter new age (current: " << age << "): ";
+                std::cin >> age;
+                std::cout << "Enter new height (current: " << height << "): ";
+                std::cin >> height;
+                std::cout << "Enter new weight (current: " << weight << "): ";
+                std::cin >> weight;
+                std::cout << "Enter new activity level (current: " << activityLevel << "): ";
+                std::cin >> activityLevel;
+                std::cout << "Enter new goal (current: " << goal << "): ";
+                std::cin >> goal;
+
+                // Update the current line with the new values
+                std::stringstream updatedLine;
+                updatedLine << storedUsername << " "
+                    << storedPassword << " "
+                    << gender << " "
+                    << age << " "
+                    << height << " "
+                    << weight << " "
+                    << activityLevel << " "
+                    << goal << " "
+                    << accountType;
+
+                line = updatedLine.str(); // Replace the line with updated details
+                break;
+            }
+        }
+
+        infile.close();
+
+        if (userFound) {
+            // Write the updated lines back to the file
+            std::ofstream outfile(filename);
+            for (const auto& line : lines) {
+                outfile << line << "\n";
+            }
+            outfile.close();
+            std::cout << "User information updated successfully.\n";
+            return true;
+        }
+        else {
+            std::cout << "User not found.\n";
+            return false;
+        }
+    }
 };
 
 #endif // USER_H
