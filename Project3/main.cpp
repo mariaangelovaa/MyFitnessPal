@@ -1,9 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include "User.h"
 #include "Exercise.h"
 #include "Meal.h"
 #include "CalorieCalculator.h"
+#include <ctime>
 
 User loggedInUser;
 
@@ -184,6 +186,19 @@ void viewRecommendedCalorieIntake(const std::string& username) {
     std::cout << "\nYour recommended daily calorie intake is: " << targetCalories << " kcal\n";
 }
 
+// Get today's date
+std::string getTodayDate() {
+    // Get current time
+    std::time_t t = std::time(nullptr);
+    std::tm tm = *std::localtime(&t);  // Convert current time to local time structure
+
+    // Format the date as YYYY-MM-DD
+    char buffer[11];  // YYYY-MM-DD format requires 10 characters + null terminator
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", &tm);
+
+    return std::string(buffer);  // Return the formatted date
+}
+
 int main() {
     std::string filename = "users.txt";
     std::string username;
@@ -217,30 +232,17 @@ int main() {
     // Once logged in, show the main menu
     while (loggedIn) {
         showMainMenu();
-        // Get today's date
-        char buffer[128];
-#ifdef _WIN32  // For Windows
-        FILE* fp = _popen("date /t", "r");
-#else  // For Linux or macOS
-        FILE* fp = popen("date +%Y-%m-%d", "r");
-#endif
-        std::string todayDate = "";
-        if (fp) {
-            fgets(buffer, sizeof(buffer), fp);
-            todayDate = buffer;
-            todayDate = todayDate.substr(0, 10);  // Trim the string to get only the date in YYYY-MM-DD format
-            fclose(fp);
-        }
-        std::cin >> choice;
+        std::string todayDate = getTodayDate();
+        std::cout << "Today's date: " << todayDate << std::endl;
 
+        std::cin >> choice;
         switch (choice) {
         case 1:
-
             viewDailyReport(username, todayDate);
             break;
         case 2: {
             std::string date;
-            std::cout << "Enter date (YYYY-MM-DD) to view the report: ";
+            std::cout << "Enter date (DD.MM.YYYY) to view the report: ";
             std::cin >> date;
             viewDailyReport(username, date);  // Call the new version of viewDailyReport with a specific date
             break;

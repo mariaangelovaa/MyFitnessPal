@@ -1,10 +1,11 @@
 #ifndef EXERCISE_H
 #define EXERCISE_H
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <ctime> // For ctime functions
 
 class Exercise {
 public:
@@ -12,21 +13,19 @@ public:
     float caloriesBurned;
     std::string date; // Date of the exercise
 
+    // Constructor to initialize the exercise with name, calories burned, and date
     Exercise(const std::string& name, float caloriesBurned) : name(name), caloriesBurned(caloriesBurned) {
-        // Use system command to get the date (works on Unix-like systems)
-        char buffer[128];
-#ifdef _WIN32  // For Windows
-        FILE* fp = _popen("date /t", "r"); // Windows command to get date
-#else  // For Linux or macOS
-        FILE* fp = popen("date +%Y-%m-%d", "r"); // Unix/Linux/Mac command
-#endif
-        if (fp) {
-            fgets(buffer, sizeof(buffer), fp);
-            date = buffer;  // Save the date in YYYY-MM-DD format
-            fclose(fp);
-        }
+        // Get current date using ctime
+        std::time_t t = std::time(nullptr); // Get current time
+        std::tm* tm = std::localtime(&t); // Convert to local time
+
+        // Format the date to YYYY-MM-DD
+        char buffer[11];
+        std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", tm);
+        date = buffer;  // Save the formatted date
     }
 
+    // Function to add an exercise to the file
     static void addExercise(const std::string& username, const Exercise& exercise, const std::string& filename) {
         std::ofstream outfile(filename, std::ios::app);
         if (outfile.is_open()) {
@@ -34,6 +33,7 @@ public:
         }
     }
 
+    // Function to get total calories burned by the user
     static float getTotalCaloriesBurned(const std::string& username, const std::string& filename) {
         std::ifstream infile(filename);
         std::string line;
@@ -54,7 +54,7 @@ public:
         return totalCaloriesBurned;
     }
 
-    // In Exercise.h
+    // Function to get total calories burned for a specific date
     static float getTotalCaloriesBurnedForDate(const std::string& username, const std::string& date, const std::string& filename) {
         std::ifstream infile(filename);
         std::string line;
@@ -75,8 +75,7 @@ public:
         return totalCaloriesBurned;
     }
 
-
-
+    // Function to delete exercises by a specific date
     static void deleteExercisesByDate(const std::string& username, const std::string& date, const std::string& filename) {
         std::ifstream infile(filename);
         std::ofstream tempFile("temp_exercises.txt");
@@ -102,6 +101,7 @@ public:
         std::rename("temp_exercises.txt", filename.c_str());
     }
 
+    // Function to update an exercise in the file
     static void updateExercise(const std::string& username, const Exercise& newExercise, const std::string& filename) {
         std::ifstream infile(filename);
         std::ofstream tempFile("temp_exercises.txt");
@@ -138,9 +138,6 @@ public:
             std::rename("temp_exercises.txt", filename.c_str());
         }
     }
-
 };
-
-
 
 #endif // EXERCISE_H

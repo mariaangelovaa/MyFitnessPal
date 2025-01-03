@@ -1,10 +1,11 @@
 #ifndef MEAL_H
 #define MEAL_H
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <ctime> // For ctime functions
 
 class Meal {
 public:
@@ -12,20 +13,19 @@ public:
     float calories;
     std::string date; // Date of the meal
 
+    // Constructor to initialize the meal with name, calories, and date
     Meal(const std::string& name, float calories) : name(name), calories(calories) {
-        // Use system command to get the date (works on Unix-like systems)
-        char buffer[128];
-#ifdef _WIN32  // For Windows
-        FILE* fp = _popen("date /t", "r"); // Windows command to get date
+        // Get current date using ctime
+        std::time_t t = std::time(nullptr); // Get current time
+        std::tm* tm = std::localtime(&t); // Convert to local time
 
-#endif
-        if (fp) {
-            fgets(buffer, sizeof(buffer), fp);
-            date = buffer;  // Save the date in YYYY-MM-DD format
-            fclose(fp);
-        }
+        // Format the date to YYYY-MM-DD
+        char buffer[11];
+        std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", tm);
+        date = buffer;  // Save the formatted date
     }
 
+    // Function to add a meal to the file
     static void addMeal(const std::string& username, const Meal& meal, const std::string& filename) {
         std::ofstream outfile(filename, std::ios::app);
         if (outfile.is_open()) {
@@ -33,6 +33,7 @@ public:
         }
     }
 
+    // Function to get total calories consumed by the user
     static float getTotalCalories(const std::string& username, const std::string& filename) {
         std::ifstream infile(filename);
         std::string line;
@@ -53,7 +54,7 @@ public:
         return totalCalories;
     }
 
-    // In Meal.h
+    // Function to get total calories for a specific date
     static float getTotalCaloriesForDate(const std::string& username, const std::string& date, const std::string& filename) {
         std::ifstream infile(filename);
         std::string line;
@@ -74,8 +75,7 @@ public:
         return totalCalories;
     }
 
-
-
+    // Function to delete meals by a specific date
     static void deleteMealsByDate(const std::string& username, const std::string& date, const std::string& filename) {
         std::ifstream infile(filename);
         std::ofstream tempFile("temp_meals.txt");
@@ -101,7 +101,7 @@ public:
         std::rename("temp_meals.txt", filename.c_str());
     }
 
-
+    // Function to update a meal in the file
     static void updateMeal(const std::string& username, const Meal& newMeal, const std::string& filename) {
         std::ifstream infile(filename);
         std::ofstream tempFile("temp_meals.txt");
