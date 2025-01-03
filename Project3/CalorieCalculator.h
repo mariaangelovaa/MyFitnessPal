@@ -2,6 +2,7 @@
 #include <string>
 #include <utility> // За std::pair
 #include "User.h"
+#include "Macros.h"
 
 class CalorieCalculator {
 public:
@@ -51,8 +52,8 @@ public:
         }
     }
 
-    // Изчисляване на макронутриентите (протеини, мазнини и въглехидрати) за целевите калории
-    static std::pair<float, float> calculateMacros(const User& user, float totalCalories) {
+    // Calculate macros based on target calories for the user's goal
+    static Macros calculateMacros(const User& user, float totalCalories) {
         float protein, fat, carbs;
 
         if (user.goal == "Lose") {
@@ -71,6 +72,7 @@ public:
             carbs = totalCalories * 0.45 / 4;
         }
 
-        return std::pair<float, float>(protein, fat);
+        return Macros(protein, fat, carbs);  // Return Macros object
     }
+
 };

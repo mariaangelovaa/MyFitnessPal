@@ -82,6 +82,7 @@ void showMainMenu() {
     std::cout << "9. Update Exercise for Today\n";
     std::cout << "10. Update Physical info\n";
     std::cout << "11. Logout\n";
+    std::cout << "12. Show Macros for Premium User\n";  // Добавяме новата опция
     std::cout << "Please select an option: ";
 }
 
@@ -199,6 +200,23 @@ std::string getTodayDate() {
     return std::string(buffer);  // Return the formatted date
 }
 
+// Function to display macros for premium users
+void showMacrosForPremiumUser(const User& user) {
+    if (user.account_type == "Premium") {
+        float totalCalories = CalorieCalculator::calculateTargetCalories(user);
+
+        // Calculate the macros using the Macros class
+        Macros macros = CalorieCalculator::calculateMacros(user, totalCalories);
+
+        std::cout << "\nYour macronutrients based on recommended daily calories:\n";
+        macros.display();  // Display macros using the display function in Macros
+    }
+    else {
+        std::cout << "This functionality is available only for Premium users.\n";
+    }
+}
+
+
 int main() {
     std::string filename = "users.txt";
     std::string username;
@@ -307,6 +325,9 @@ int main() {
             std::cout << "Logged out successfully.\n";
             loggedIn = false;  // Reset login status to false
             break;  // Return to the login/register menu
+        case 12:
+            showMacrosForPremiumUser(loggedInUser);  // Новата функция за показване на макронутриентите
+            break;
         default:
             std::cout << "Invalid option. Please try again.\n";
         }
