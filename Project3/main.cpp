@@ -123,14 +123,12 @@ void addExercise(const std::string& username) {
     std::cout << "Exercise added successfully!\n";
 }
 
-// Function to view recommended daily calorie
+// Function to view recommended daily calorie intake
 void viewRecommendedCalorieIntake(const std::string& username) {
-
     float targetCalories = CalorieCalculator::calculateTargetCalories(loggedInUser);
 
-    // Извеждаме резултата
+    // Output the result
     std::cout << "\nYour recommended daily calorie intake is: " << targetCalories << " kcal\n";
-
 }
 
 int main() {
@@ -164,7 +162,7 @@ int main() {
     }
 
     // Once logged in, show the main menu
-    while (true) {
+    while (loggedIn) {
         showMainMenu();
         std::cin >> choice;
 
@@ -183,11 +181,13 @@ int main() {
             break;
         case 5:
             std::cout << "Logged out successfully.\n";
-            return 0;
+            loggedIn = false;  // Reset login status to false
+            break;  // Return to the login/register menu
         default:
             std::cout << "Invalid option. Please try again.\n";
         }
     }
 
-    return 0;
+    // This ensures that after logging out, we return to the login/register menu
+    return main();  // Recursively call main to restart the loop
 }
