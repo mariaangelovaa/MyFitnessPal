@@ -87,6 +87,53 @@ void viewDailyReport(const std::string& username) {
     std::cout << "Total Calories Consumed: " << totalCalories << " kcal\n";
     std::cout << "Total Calories Burned: " << totalCaloriesBurned << " kcal\n";
     std::cout << "Net Calories: " << (totalCalories - totalCaloriesBurned) << " kcal\n";
+
+    // Display all meals for the day
+    std::cout << "\nMeals for today:\n";
+    std::ifstream mealFile("meals.txt");
+    std::string line;
+    bool mealFound = false;
+    while (std::getline(mealFile, line)) {
+        std::stringstream ss(line);
+        std::string storedUsername, name;
+        float calories;
+
+        ss >> storedUsername >> name >> calories;
+
+        if (storedUsername == username) {
+            std::cout << "Meal: " << name << " | Calories: " << calories << " kcal\n";
+            mealFound = true;
+        }
+    }
+
+    if (!mealFound) {
+        std::cout << "No meals recorded for today.\n";
+    }
+
+    mealFile.close();
+
+    // Display all exercises for the day
+    std::cout << "\nExercises for today:\n";
+    std::ifstream exerciseFile("exercises.txt");
+    bool exerciseFound = false;
+    while (std::getline(exerciseFile, line)) {
+        std::stringstream ss(line);
+        std::string storedUsername, name;
+        float caloriesBurned;
+
+        ss >> storedUsername >> name >> caloriesBurned;
+
+        if (storedUsername == username) {
+            std::cout << "Exercise: " << name << " | Calories burned: " << caloriesBurned << " kcal\n";
+            exerciseFound = true;
+        }
+    }
+
+    if (!exerciseFound) {
+        std::cout << "No exercises recorded for today.\n";
+    }
+
+    exerciseFile.close();
 }
 
 // Function to add a meal

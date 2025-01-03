@@ -2,26 +2,38 @@
 #define EXERCISE_H
 
 #include <string>
-#include <fstream>  // За файлови потоци
-#include <sstream>  // За използване на stringstream
+#include <fstream>
+#include <sstream>
 #include <iostream>
 
 class Exercise {
 public:
     std::string name;
-    float caloriesBurned; // Калории, които са изгорени при тренировка
+    float caloriesBurned;
+    std::string date; // Date of the exercise
 
-    Exercise(const std::string& name, float caloriesBurned) : name(name), caloriesBurned(caloriesBurned) {}
-
-    // Записване на тренировката в файл
-    static void addExercise(const std::string& username, const Exercise& exercise, const std::string& filename) {
-        std::ofstream outfile(filename, std::ios::app);
-        if (outfile.is_open()) {
-            outfile << username << " " << exercise.name << " " << exercise.caloriesBurned << "\n";
+    Exercise(const std::string& name, float caloriesBurned) : name(name), caloriesBurned(caloriesBurned) {
+        // Use system command to get the date (works on Unix-like systems)
+        char buffer[128];
+#ifdef _WIN32  // For Windows
+        FILE* fp = _popen("date /t", "r"); // Windows command to get date
+#else  // For Linux or macOS
+        FILE* fp = popen("date +%Y-%m-%d", "r"); // Unix/Linux/Mac command
+#endif
+        if (fp) {
+            fgets(buffer, sizeof(buffer), fp);
+            date = buffer;  // Save the date in YYYY-MM-DD format
+            fclose(fp);
         }
     }
 
-    // Прочитане на всички тренировки от файл и изчисляване на общите изгорени калории
+    static void addExercise(const std::string& username, const Exercise& exercise, const std::string& filename) {
+        std::ofstream outfile(filename, std::ios::app);
+        if (outfile.is_open()) {
+            outfile << username << " " << exercise.name << " " << exercise.caloriesBurned << " " << exercise.date << "\n";
+        }
+    }
+
     static float getTotalCaloriesBurned(const std::string& username, const std::string& filename) {
         std::ifstream infile(filename);
         std::string line;
@@ -29,10 +41,10 @@ public:
 
         while (std::getline(infile, line)) {
             std::stringstream ss(line);
-            std::string storedUsername, name;
+            std::string storedUsername, name, date;
             float caloriesBurned;
 
-            ss >> storedUsername >> name >> caloriesBurned;
+            ss >> storedUsername >> name >> caloriesBurned >> date;
 
             if (storedUsername == username) {
                 totalCaloriesBurned += caloriesBurned;
