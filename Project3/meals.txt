@@ -1,3 +1,4 @@
 user123 apples 350
-mimi Apples 200
-kalina Bread 300
+mimi chocolate 200 03.01.2025 
+mimi apples 100 02.01.2025 
+
