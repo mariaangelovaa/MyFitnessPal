@@ -1,11 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS
+
+
 #include <iostream>
 #include <string>
+#include <ctime>
 #include "User.h"
 #include "Exercise.h"
 #include "Meal.h"
 #include "CalorieCalculator.h"
-#include <ctime>
 
 User loggedInUser;
 
@@ -70,7 +72,8 @@ bool handleLogin(const std::string& filename, std::string& username) {
 
 // Function to show the main menu
 void showMainMenu() {
-    std::cout << "\nWelcome to the Calorie Tracker!\n";
+    std::cout << "\n---------------------------------\n";
+    std::cout << "\nPlease choose an option: \n";
     std::cout << "1. View Daily Report for Today\n";
     std::cout << "2. View Daily Report for a Specific Date\n";
     std::cout << "3. Add Meal\n";
@@ -187,17 +190,15 @@ void viewRecommendedCalorieIntake(const std::string& username) {
     std::cout << "\nYour recommended daily calorie intake is: " << targetCalories << " kcal\n";
 }
 
-// Get today's date
 std::string getTodayDate() {
     // Get current time
     std::time_t t = std::time(nullptr);
-    std::tm tm = *std::localtime(&t);  // Convert current time to local time structure
+    std::tm* tm = std::localtime(&t);
 
-    // Format the date as YYYY-MM-DD
-    char buffer[11];  // YYYY-MM-DD format requires 10 characters + null terminator
-    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", &tm);
-
-    return std::string(buffer);  // Return the formatted date
+    // Format the date to dd.mm.yyyy
+    char buffer[11];
+    std::strftime(buffer, sizeof(buffer), "%d.%m.%Y", tm);  // Format as dd.mm.yyyy
+    return std::string(buffer);
 }
 
 // Function to display macros for premium users
@@ -225,7 +226,7 @@ int main() {
 
     // Show login or register options until user logs in
     while (!loggedIn) {
-        std::cout << "Welcome to the Calorie Tracker! Please select an option:\n";
+        std::cout << "Welcome to the MariaFitnessPal app! Please select an option:\n";
         std::cout << "1. Register\n";
         std::cout << "2. Login\n";
         std::cout << "3. Exit\n";
@@ -251,7 +252,6 @@ int main() {
     while (loggedIn) {
         showMainMenu();
         std::string todayDate = getTodayDate();
-        std::cout << "Today's date: " << todayDate << std::endl;
 
         std::cin >> choice;
         switch (choice) {
@@ -276,7 +276,7 @@ int main() {
             break;
         case 6: {
             std::string date;
-            std::cout << "Enter date to delete meals (YYYY-MM-DD): ";
+            std::cout << "Enter date to delete meals (DD.MM.YYYY): ";
             std::cin >> date;
             Meal::deleteMealsByDate(username, date, "meals.txt");
             std::cout << "Meals for " << date << " deleted successfully.\n";
@@ -284,7 +284,7 @@ int main() {
         }
         case 7: {
             std::string date;
-            std::cout << "Enter date to delete exercises (YYYY-MM-DD): ";
+            std::cout << "Enter date to delete exercises (DD.MM.YYYY): ";
             std::cin >> date;
             Exercise::deleteExercisesByDate(username, date, "exercises.txt");
             std::cout << "Exercises for " << date << " deleted successfully.\n";
