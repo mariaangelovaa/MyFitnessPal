@@ -15,7 +15,7 @@ User loggedInUser;
 void handleRegister(const std::string& filename) {
     std::string username, password, gender, activity, goal, accountType;
     int age;
-    float height, weight;
+    float height, weight, kgToLose = 0, kgToGain = 0;
 
     std::cout << "Enter username: ";
     std::cin >> username;
@@ -41,10 +41,20 @@ void handleRegister(const std::string& filename) {
     std::cout << "Enter goal (Lose/Maintain/Gain): ";
     std::cin >> goal;
 
+    if (goal == "Lose") {
+        std::cout << "How much weight per week do you intend to lose? (in kg): ";
+        std::cin >> kgToLose;
+    }
+    else if (goal == "Gain") {
+        std::cout << "How much weight per week do you intend to gain? (in kg): ";
+        std::cin >> kgToGain;
+    }
+    // If goal is "Maintain", kgToLose and kgToGain stay 0 (default)
+
     std::cout << "Select account type (Standard/Premium): ";
     std::cin >> accountType;
 
-    User newUser(username, password, gender, age, height, weight, activity, goal, accountType);
+    User newUser(username, password, gender, age, height, weight, activity, goal, kgToLose, kgToGain, accountType);
     if (User::registerUser(filename, newUser)) {
         std::cout << "Registration successful!\n";
     }
@@ -326,7 +336,7 @@ int main() {
             loggedIn = false;  // Reset login status to false
             break;  // Return to the login/register menu
         case 12:
-            showMacrosForPremiumUser(loggedInUser);  // Новата функция за показване на макронутриентите
+            showMacrosForPremiumUser(loggedInUser);
             break;
         default:
             std::cout << "Invalid option. Please try again.\n";
@@ -334,5 +344,5 @@ int main() {
     }
 
     // This ensures that after logging out, we return to the login/register menu
-    return main();  // Recursively call main to restart the loop
+    return main();
 }

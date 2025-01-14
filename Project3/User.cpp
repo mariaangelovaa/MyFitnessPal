@@ -2,11 +2,13 @@
 
 // Default constructor
 User::User()
-    : username(""), password(""), gender(""), age(0), height(0.0f), weight(0.0f), activity_level(""), goal(""), account_type("") {}
+    : username(""), password(""), gender(""), age(0), height(0.0f), weight(0.0f), activity_level(""), goal(""), kgToLose(0.0f), kgToGain(0.0f), account_type("") {
+}
 
 // Constructor with parameters
-User::User(std::string uname, std::string pass, std::string gen, int ag, float h, float w, std::string activity, std::string g, std::string account)
-    : username(uname), password(pass), gender(gen), age(ag), height(h), weight(w), activity_level(activity), goal(g), account_type(account) {}
+User::User(std::string uname, std::string pass, std::string gen, int ag, float h, float w, std::string activity, std::string g, float kgL, float kgG, std::string account)
+    : username(uname), password(pass), gender(gen), age(ag), height(h), weight(w), activity_level(activity), goal(g), kgToLose(kgL), kgToGain(kgG), account_type(account) {
+}
 
 // Function for user registration
 bool User::registerUser(const std::string& filename, const User& newUser) {
@@ -32,6 +34,8 @@ bool User::registerUser(const std::string& filename, const User& newUser) {
             << newUser.weight << " "
             << newUser.activity_level << " "
             << newUser.goal << " "
+            << newUser.kgToLose << " "
+            << newUser.kgToGain << " "
             << newUser.account_type << "\n";
         std::cout << "Registration successful!\n";
         return true;
@@ -62,13 +66,13 @@ User User::getUserFromFile(const std::string& filename, const std::string& uname
         std::stringstream ss(line);
         std::string storedUsername, storedPassword, gender, activityLevel, goal, accountType;
         int age;
-        float height, weight;
+        float height, weight, kgToLose, kgToGain;
 
-        ss >> storedUsername >> storedPassword >> gender >> age >> height >> weight >> activityLevel >> goal >> accountType;
+        ss >> storedUsername >> storedPassword >> gender >> age >> height >> weight >> activityLevel >> goal >> kgToLose >> kgToGain >> accountType;
 
         // If we find a match for the username, return a User object
         if (storedUsername == uname) {
-            return User(storedUsername, storedPassword, gender, age, height, weight, activityLevel, goal, accountType);
+            return User(storedUsername, storedPassword, gender, age, height, weight, activityLevel, goal, kgToLose, kgToGain, accountType);
         }
     }
     // If the user is not found, throw an exception
@@ -92,9 +96,9 @@ bool User::updateUserPhysicalInfo(const std::string& filename, const std::string
         std::stringstream ss(line);
         std::string storedUsername, storedPassword, gender, activityLevel, goal, accountType;
         int age;
-        float height, weight;
+        float height, weight, kgToLose, kgToGain;
 
-        ss >> storedUsername >> storedPassword >> gender >> age >> height >> weight >> activityLevel >> goal >> accountType;
+        ss >> storedUsername >> storedPassword >> gender >> age >> height >> weight >> activityLevel >> goal >> kgToLose >> kgToGain >> accountType;
 
         if (storedUsername == uname) {
             userFound = true;
@@ -112,6 +116,22 @@ bool User::updateUserPhysicalInfo(const std::string& filename, const std::string
             std::cout << "Enter new goal (current: " << goal << "): ";
             std::cin >> goal;
 
+            if (goal == "Lose") {
+                std::cout << "How much weight per week do you intend to lose? (in kg): ";
+                std::cin >> kgToLose;
+                kgToGain = 0; // Ensure kgToGain is 0 if the goal is to lose weight
+            }
+            else if (goal == "Gain") {
+                std::cout << "How much weight per week do you intend to gain? (in kg): ";
+                std::cin >> kgToGain;
+                kgToLose = 0; // Ensure kgToLose is 0 if the goal is to gain weight
+            }
+            else {
+                // If goal is Maintain, both kgToLose and kgToGain should be 0
+                kgToLose = 0;
+                kgToGain = 0;
+            }
+
             // Update the current line with the new values
             std::stringstream updatedLine;
             updatedLine << storedUsername << " "
@@ -122,6 +142,8 @@ bool User::updateUserPhysicalInfo(const std::string& filename, const std::string
                 << weight << " "
                 << activityLevel << " "
                 << goal << " "
+                << kgToLose << " "
+                << kgToGain << " "
                 << accountType;
 
             line = updatedLine.str(); // Replace the line with updated details

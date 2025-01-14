@@ -38,10 +38,11 @@ float CalorieCalculator::calculateTargetCalories(const User& user) {
     float totalCalories = calculateTotalCalories(user);
 
     if (user.goal == "Lose") {
-        return totalCalories - 500; // For losing 0.5 kg per week
+        return totalCalories - user.kgToLose; // For losing 0.5 kg per week
     }
     else if (user.goal == "Gain") {
-        return totalCalories + 500; // For gaining 0.5 kg per week
+        //return totalCalories + 500; // For gaining 0.5 kg per week
+        return totalCalories + user.kgToGain;
     }
     else {
         return totalCalories; // For weight maintenance

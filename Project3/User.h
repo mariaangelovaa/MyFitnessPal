@@ -17,13 +17,15 @@ public:
     float weight;
     std::string activity_level;
     std::string goal;
+    float kgToLose;
+    float kgToGain;
     std::string account_type;
 
     // Default constructor
     User();
 
     // Constructor with parameters
-    User(std::string uname, std::string pass, std::string gen, int ag, float h, float w, std::string activity, std::string g, std::string account);
+    User(std::string uname, std::string pass, std::string gen, int ag, float h, float w, std::string activity, std::string g, float kgL, float kgG, std::string account);
 
     // Function for user registration
     static bool registerUser(const std::string& filename, const User& newUser);
