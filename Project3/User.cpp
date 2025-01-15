@@ -1,17 +1,20 @@
 #include "User.h"
 
-// Default constructor
-User::User()
-    : username(""), password(""), gender(""), age(0), height(0.0f), weight(0.0f), activity_level(""), goal(""), kgToLose(0.0f), kgToGain(0.0f), account_type("") {
+void initUser(User& user, const std::string& uname, const std::string& pass, const std::string& gen, int ag, float h, float w, const std::string& activity, const std::string& g, float kgL, float kgG, const std::string& account) {
+    user.username = uname;
+    user.password = pass;
+    user.gender = gen;
+    user.age = ag;
+    user.height = h;
+    user.weight = w;
+    user.activity_level = activity;
+    user.goal = g;
+    user.kgToLose = kgL;
+    user.kgToGain = kgG;
+    user.account_type = account;
 }
 
-// Constructor with parameters
-User::User(std::string uname, std::string pass, std::string gen, int ag, float h, float w, std::string activity, std::string g, float kgL, float kgG, std::string account)
-    : username(uname), password(pass), gender(gen), age(ag), height(h), weight(w), activity_level(activity), goal(g), kgToLose(kgL), kgToGain(kgG), account_type(account) {
-}
-
-// Function for user registration
-bool User::registerUser(const std::string& filename, const User& newUser) {
+bool registerUser(const std::string& filename, const User& newUser) {
     std::ifstream infile(filename);
     std::string line;
     while (std::getline(infile, line)) {
@@ -43,8 +46,7 @@ bool User::registerUser(const std::string& filename, const User& newUser) {
     return false;
 }
 
-// Function for user login
-bool User::loginUser(const std::string& filename, const std::string& uname, const std::string& pass) {
+bool loginUser(const std::string& filename, const std::string& uname, const std::string& pass) {
     std::ifstream infile(filename);
     std::string line;
     while (std::getline(infile, line)) {
@@ -58,8 +60,7 @@ bool User::loginUser(const std::string& filename, const std::string& uname, cons
     return false; // Invalid username or password
 }
 
-// Function to get user from file
-User User::getUserFromFile(const std::string& filename, const std::string& uname) {
+User getUserFromFile(const std::string& filename, const std::string& uname) {
     std::ifstream infile(filename);
     std::string line;
     while (std::getline(infile, line)) {
@@ -72,15 +73,16 @@ User User::getUserFromFile(const std::string& filename, const std::string& uname
 
         // If we find a match for the username, return a User object
         if (storedUsername == uname) {
-            return User(storedUsername, storedPassword, gender, age, height, weight, activityLevel, goal, kgToLose, kgToGain, accountType);
+            User user;
+            initUser(user, storedUsername, storedPassword, gender, age, height, weight, activityLevel, goal, kgToLose, kgToGain, accountType);
+            return user;
         }
     }
     // If the user is not found, throw an exception
     throw std::runtime_error("User not found");
 }
 
-// Method to update user's physical info
-bool User::updateUserPhysicalInfo(const std::string& filename, const std::string& uname) {
+bool updateUserPhysicalInfo(const std::string& filename, const std::string& uname) {
     std::ifstream infile(filename);
     std::vector<std::string> lines;
     std::string line;

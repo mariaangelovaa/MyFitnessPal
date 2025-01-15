@@ -1,12 +1,13 @@
 #include "Macros.h"
 
-// Constructor to initialize the macros
-Macros::Macros(float protein, float fat, float carbs)
-    : protein(protein), fat(fat), carbs(carbs) {}
+void initMacros(Macros& macros, float protein, float fat, float carbs) {
+    macros.protein = protein;
+    macros.fat = fat;
+    macros.carbs = carbs;
+}
 
-// Function to display the macros
-void Macros::display() const {
-    std::cout << "Protein: " << protein << " g\n";
-    std::cout << "Fat: " << fat << " g\n";
-    std::cout << "Carbs: " << carbs << " g\n";
+void displayMacros(const Macros& macros) {
+    std::cout << "Protein: " << macros.protein << " g\n";
+    std::cout << "Fat: " << macros.fat << " g\n";
+    std::cout << "Carbs: " << macros.carbs << " g\n";
 }

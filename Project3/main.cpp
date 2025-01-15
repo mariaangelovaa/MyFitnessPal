@@ -1,9 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <fstream>
+#include <sstream>
 #include "User.h"
 #include "Exercise.h"
 #include "Meal.h"
@@ -11,11 +12,11 @@
 
 User loggedInUser;
 
-// Function to handle user registration
 void handleRegister(const std::string& filename) {
     std::string username, password, gender, activity, goal, accountType;
     int age;
     float height, weight, kgToLose = 0, kgToGain = 0;
+    User newUser;
 
     std::cout << "Enter username: ";
     std::cin >> username;
@@ -54,13 +55,12 @@ void handleRegister(const std::string& filename) {
     std::cout << "Select account type (Standard/Premium): ";
     std::cin >> accountType;
 
-    User newUser(username, password, gender, age, height, weight, activity, goal, kgToLose, kgToGain, accountType);
-    if (User::registerUser(filename, newUser)) {
+    initUser(newUser, username, password, gender, age, height, weight, activity, goal, kgToLose, kgToGain, accountType);
+    if (registerUser(filename, newUser)) {
         std::cout << "Registration successful!\n";
     }
 }
 
-// Function to handle user login
 bool handleLogin(const std::string& filename, std::string& username) {
     std::string password;
     std::cout << "Enter username: ";
@@ -69,8 +69,8 @@ bool handleLogin(const std::string& filename, std::string& username) {
     std::cout << "Enter password: ";
     std::cin >> password;
 
-    if (User::loginUser(filename, username, password)) {
-        loggedInUser = User::getUserFromFile(filename, username);
+    if (loginUser(filename, username, password)) {
+        loggedInUser = getUserFromFile(filename, username);
         std::cout << "Login successful!\n";
         return true;
     }
@@ -80,7 +80,6 @@ bool handleLogin(const std::string& filename, std::string& username) {
     }
 }
 
-// Function to show the main menu
 void showMainMenu() {
     std::cout << "\n---------------------------------\n";
     std::cout << "\nPlease choose an option: \n";
@@ -95,15 +94,14 @@ void showMainMenu() {
     std::cout << "9. Update Exercise for Today\n";
     std::cout << "10. Update Physical info\n";
     std::cout << "11. Logout\n";
-    std::cout << "12. Show Macros for Premium User\n";  // Добавяме новата опция
+    std::cout << "12. Show Macros for Premium User\n";
     std::cout << "Please select an option: ";
 }
 
-// Function to view the daily report
 void viewDailyReport(const std::string& username, const std::string& date) {
     // Calculate total calories from meals and exercises for the given date
-    float totalCalories = Meal::getTotalCaloriesForDate(username, date, "meals.txt");
-    float totalCaloriesBurned = Exercise::getTotalCaloriesBurnedForDate(username, date, "exercises.txt");
+    float totalCalories = getTotalCaloriesForDate(username, date, "meals.txt");
+    float totalCaloriesBurned = getTotalCaloriesBurnedForDate(username, date, "exercises.txt");
 
     std::cout << "\nDaily Report for " << username << " on " << date << ":\n";
     std::cout << "Total Calories Consumed: " << totalCalories << " kcal\n";
@@ -158,10 +156,10 @@ void viewDailyReport(const std::string& username, const std::string& date) {
     exerciseFile.close();
 }
 
-// Function to add a meal
 void addMeal(const std::string& username) {
     std::string name;
     float calories;
+    Meal meal;
 
     std::cout << "Enter meal name: ";
     std::cin.ignore();
@@ -170,15 +168,15 @@ void addMeal(const std::string& username) {
     std::cout << "Enter calories: ";
     std::cin >> calories;
 
-    Meal meal(name, calories);
-    Meal::addMeal(username, meal, "meals.txt");
+    initMeal(meal, name, calories);
+    addMeal(username, meal, "meals.txt");
     std::cout << "Meal added successfully!\n";
 }
 
-// Function to add an exercise
 void addExercise(const std::string& username) {
     std::string name;
     float caloriesBurned;
+    Exercise exercise;
 
     std::cout << "Enter exercise name: ";
     std::cin.ignore();
@@ -187,14 +185,13 @@ void addExercise(const std::string& username) {
     std::cout << "Enter calories burned: ";
     std::cin >> caloriesBurned;
 
-    Exercise exercise(name, caloriesBurned);
-    Exercise::addExercise(username, exercise, "exercises.txt");
+    initExercise(exercise, name, caloriesBurned);
+    addExercise(username, exercise, "exercises.txt");
     std::cout << "Exercise added successfully!\n";
 }
 
-// Function to view recommended daily calorie intake
 void viewRecommendedCalorieIntake(const std::string& username) {
-    float targetCalories = CalorieCalculator::calculateTargetCalories(loggedInUser);
+    float targetCalories = calculateTargetCalories(loggedInUser);
 
     // Output the result
     std::cout << "\nYour recommended daily calorie intake is: " << targetCalories << " kcal\n";
@@ -214,19 +211,18 @@ std::string getTodayDate() {
 // Function to display macros for premium users
 void showMacrosForPremiumUser(const User& user) {
     if (user.account_type == "Premium") {
-        float totalCalories = CalorieCalculator::calculateTargetCalories(user);
-
-        // Calculate the macros using the Macros class
-        Macros macros = CalorieCalculator::calculateMacros(user, totalCalories);
+        float totalCalories = calculateTargetCalories(user);
+        Macros macros = calculateMacros(user, totalCalories);
 
         std::cout << "\nYour macronutrients based on recommended daily calories:\n";
-        macros.display();  // Display macros using the display function in Macros
+        std::cout << "Protein: " << macros.protein << "g\n";
+        std::cout << "Fat: " << macros.fat << "g\n";
+        std::cout << "Carbs: " << macros.carbs << "g\n";
     }
     else {
         std::cout << "This functionality is available only for Premium users.\n";
     }
 }
-
 
 int main() {
     std::string filename = "users.txt";
@@ -260,6 +256,9 @@ int main() {
 
     // Once logged in, show the main menu
     while (loggedIn) {
+        Exercise exercise;
+        Meal meal;
+
         showMainMenu();
         std::string todayDate = getTodayDate();
 
@@ -288,7 +287,7 @@ int main() {
             std::string date;
             std::cout << "Enter date to delete meals (DD.MM.YYYY): ";
             std::cin >> date;
-            Meal::deleteMealsByDate(username, date, "meals.txt");
+            deleteMealsByDate(username, date, "meals.txt");
             std::cout << "Meals for " << date << " deleted successfully.\n";
             break;
         }
@@ -296,7 +295,7 @@ int main() {
             std::string date;
             std::cout << "Enter date to delete exercises (DD.MM.YYYY): ";
             std::cin >> date;
-            Exercise::deleteExercisesByDate(username, date, "exercises.txt");
+            deleteExercisesByDate(username, date, "exercises.txt");
             std::cout << "Exercises for " << date << " deleted successfully.\n";
             break;
         }
@@ -308,8 +307,8 @@ int main() {
             std::getline(std::cin, name);
             std::cout << "Enter new calories: ";
             std::cin >> calories;
-            Meal meal(name, calories);
-            Meal::updateMeal(username, meal, "meals.txt");
+            initMeal(meal, name, calories);
+            updateMeal(username, meal, "meals.txt");
             std::cout << "Meal updated successfully!\n";
             break;
         }
@@ -321,14 +320,14 @@ int main() {
             std::getline(std::cin, name);
             std::cout << "Enter new calories burned: ";
             std::cin >> caloriesBurned;
-            Exercise exercise(name, caloriesBurned);
-            Exercise::updateExercise(username, exercise, "exercises.txt");
+            initExercise(exercise, name, caloriesBurned);
+            updateExercise(username, exercise, "exercises.txt");
             std::cout << "Exercise updated successfully!\n";
             break;
         }
         case 10: {
-            User::updateUserPhysicalInfo("users.txt", username);  // Update user physical info
-            loggedInUser = User::getUserFromFile(filename, username);
+            updateUserPhysicalInfo("users.txt", username);  // Update user physical info
+            loggedInUser = getUserFromFile(filename, username);
             break;
         }
         case 11:

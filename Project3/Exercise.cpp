@@ -1,6 +1,13 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "Exercise.h"
+#include <fstream>
+#include <sstream>
+#include <ctime>
 
-Exercise::Exercise(const std::string& name, float caloriesBurned) : name(name), caloriesBurned(caloriesBurned) {
+void initExercise(Exercise& exercise, const std::string& name, float caloriesBurned) {
+    exercise.name = name;
+    exercise.caloriesBurned = caloriesBurned;
+
     // Get current date using ctime
     std::time_t t = std::time(nullptr); // Get current time
     std::tm* tm = std::localtime(&t); // Convert to local time
@@ -8,17 +15,17 @@ Exercise::Exercise(const std::string& name, float caloriesBurned) : name(name), 
     // Format the date to DD.MM.YYYY
     char buffer[11];
     std::strftime(buffer, sizeof(buffer), "%d.%m.%Y", tm);
-    date = buffer;  // Save the formatted date
+    exercise.date = buffer;  // Save the formatted date
 }
 
-void Exercise::addExercise(const std::string& username, const Exercise& exercise, const std::string& filename) {
+void addExercise(const std::string& username, const Exercise& exercise, const std::string& filename) {
     std::ofstream outfile(filename, std::ios::app);
     if (outfile.is_open()) {
         outfile << username << " " << exercise.name << " " << exercise.caloriesBurned << " " << exercise.date << "\n";
     }
 }
 
-float Exercise::getTotalCaloriesBurned(const std::string& username, const std::string& filename) {
+float getTotalCaloriesBurned(const std::string& username, const std::string& filename) {
     std::ifstream infile(filename);
     std::string line;
     float totalCaloriesBurned = 0;
@@ -38,7 +45,7 @@ float Exercise::getTotalCaloriesBurned(const std::string& username, const std::s
     return totalCaloriesBurned;
 }
 
-float Exercise::getTotalCaloriesBurnedForDate(const std::string& username, const std::string& date, const std::string& filename) {
+float getTotalCaloriesBurnedForDate(const std::string& username, const std::string& date, const std::string& filename) {
     std::ifstream infile(filename);
     std::string line;
     float totalCaloriesBurned = 0;
@@ -58,7 +65,7 @@ float Exercise::getTotalCaloriesBurnedForDate(const std::string& username, const
     return totalCaloriesBurned;
 }
 
-void Exercise::deleteExercisesByDate(const std::string& username, const std::string& date, const std::string& filename) {
+void deleteExercisesByDate(const std::string& username, const std::string& date, const std::string& filename) {
     std::ifstream infile(filename);
     std::ofstream tempFile("temp_exercises.txt");
     std::string line;
@@ -83,7 +90,7 @@ void Exercise::deleteExercisesByDate(const std::string& username, const std::str
     std::rename("temp_exercises.txt", filename.c_str());
 }
 
-void Exercise::updateExercise(const std::string& username, const Exercise& newExercise, const std::string& filename) {
+void updateExercise(const std::string& username, const Exercise& newExercise, const std::string& filename) {
     std::ifstream infile(filename);
     std::ofstream tempFile("temp_exercises.txt");
     std::string line;
@@ -110,7 +117,6 @@ void Exercise::updateExercise(const std::string& username, const Exercise& newEx
     tempFile.close();
 
     if (!updated) {
-        // If no update was made, add the new exercise
         addExercise(username, newExercise, filename);
     }
     else {

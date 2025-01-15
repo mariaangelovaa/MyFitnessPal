@@ -1,9 +1,6 @@
 #include "CalorieCalculator.h"
-#include <iostream>
-#include <string>
 
-// Calculate BMR based on user data
-float CalorieCalculator::calculateBMR(const User& user) {
+float calculateBMR(const User& user) {
     if (user.gender == "male") {
         return 88.362 + (13.397 * user.weight) + (4.799 * user.height) - (5.677 * user.age);
     }
@@ -12,8 +9,7 @@ float CalorieCalculator::calculateBMR(const User& user) {
     }
 }
 
-// Calculate total calories based on BMR and activity level
-float CalorieCalculator::calculateTotalCalories(const User& user) {
+float calculateTotalCalories(const User& user) {
     float bmr = calculateBMR(user);
     float activity_multiplier = 1.2;
 
@@ -33,42 +29,44 @@ float CalorieCalculator::calculateTotalCalories(const User& user) {
     return bmr * activity_multiplier;
 }
 
-// Calculate target calories based on user's goal (lose, gain, or maintain weight)
-float CalorieCalculator::calculateTargetCalories(const User& user) {
+float calculateTargetCalories(const User& user) {
     float totalCalories = calculateTotalCalories(user);
 
     if (user.goal == "Lose") {
         return totalCalories - user.kgToLose; // For losing 0.5 kg per week
     }
     else if (user.goal == "Gain") {
-        //return totalCalories + 500; // For gaining 0.5 kg per week
-        return totalCalories + user.kgToGain;
+        return totalCalories + user.kgToGain; // For gaining weight
     }
     else {
         return totalCalories; // For weight maintenance
     }
 }
 
-// Calculate macros (protein, fat, carbs) based on target calories and user goal
-Macros CalorieCalculator::calculateMacros(const User& user, float totalCalories) {
+Macros calculateMacros(const User& user, float totalCalories) {
     float protein, fat, carbs;
 
+    // Calculate macros based on user's goal
     if (user.goal == "Lose") {
-        protein = totalCalories * 0.35 / 4;
-        fat = totalCalories * 0.30 / 9;
-        carbs = totalCalories * 0.35 / 4;
+        protein = totalCalories * 0.35f / 4.0f;
+        fat = totalCalories * 0.30f / 9.0f;
+        carbs = totalCalories * 0.35f / 4.0f;
     }
     else if (user.goal == "Gain") {
-        protein = totalCalories * 0.40 / 4;
-        fat = totalCalories * 0.25 / 9;
-        carbs = totalCalories * 0.35 / 4;
+        protein = totalCalories * 0.40f / 4.0f;
+        fat = totalCalories * 0.25f / 9.0f;
+        carbs = totalCalories * 0.35f / 4.0f;
     }
     else {
-        protein = totalCalories * 0.25 / 4;
-        fat = totalCalories * 0.30 / 9;
-        carbs = totalCalories * 0.45 / 4;
+        protein = totalCalories * 0.25f / 4.0f;
+        fat = totalCalories * 0.30f / 9.0f;
+        carbs = totalCalories * 0.45f / 4.0f;
     }
 
-    // Return the macros as a Macros object
-    return Macros(protein, fat, carbs);
+    // Initialize a Macros struct and set the values
+    Macros macros;
+    initMacros(macros, protein, fat, carbs);
+
+    // Return the macros
+    return macros;
 }
