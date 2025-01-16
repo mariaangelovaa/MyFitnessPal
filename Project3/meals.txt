@@ -1,4 +1,11 @@
-user123 apples 350
 mimi chocolate 200 03.01.2025 
-mimi apples 100 02.01.2025 
+mimi mil  120 03.01.2025
+mimi tiramisu 500 03.01.2025 
+mimi mil 300 03.01.2025 
 
+
+mimi grapes 100 2025-01-04
+mimi burger  500 2025-01-04
+mimi grapes 100 04.01.2025
+mimi burger 500 04.01.2025
+mimi meat 300 14.01.2025

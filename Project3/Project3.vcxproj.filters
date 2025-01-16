@@ -18,19 +18,19 @@
     <ClInclude Include="User.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Meal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Workout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CalorieCalculator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UserManager.h">
+    <ClInclude Include="Exercise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Exercise.h">
+    <ClInclude Include="Meal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,19 +41,16 @@
     <ClCompile Include="Meal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Workout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CalorieCalculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserManager.cpp">
+    <ClCompile Include="Exercise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Exercise.cpp">
+    <ClCompile Include="Macros.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

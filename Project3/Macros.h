@@ -1,7 +1,7 @@
-#ifndef MACROS_H
-#define MACROS_H
+#pragma once
 
 #include <iostream>
+#include "Constants.h"
 
 // Structure to hold macros
 struct Macros {
@@ -13,5 +13,3 @@ struct Macros {
 void initMacros(Macros& macros, float protein = 0.0f, float fat = 0.0f, float carbs = 0.0f);
 
 void displayMacros(const Macros& macros);
-
-#endif 

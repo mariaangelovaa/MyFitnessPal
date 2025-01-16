@@ -2,31 +2,32 @@
 
 float calculateBMR(const User& user) {
     if (user.gender == "male") {
-        return 88.362 + (13.397 * user.weight) + (4.799 * user.height) - (5.677 * user.age);
+        return BMR_MALE_CONSTANT + (BMR_WEIGHT_COEFFICIENT_MALE * user.weight)
+            + (BMR_HEIGHT_COEFFICIENT_MALE * user.height) - (BMR_AGE_COEFFICIENT_MALE * user.age);
     }
     else {
-        return 447.593 + (9.247 * user.weight) + (3.098 * user.height) - (4.330 * user.age);
+        return BMR_FEMALE_CONSTANT + (BMR_WEIGHT_COEFFICIENT_FEMALE * user.weight) 
+            + (BMR_HEIGHT_COEFFICIENT_FEMALE * user.height) - (BMR_AGE_COEFFICIENT_FEMALE * user.age);
     }
 }
 
 float calculateTotalCalories(const User& user) {
     float bmr = calculateBMR(user);
-    float activity_multiplier = 1.2;
 
     if (user.activity_level == "Light") {
-        activity_multiplier = 1.375;
+        return ACTIVITY_MULTIPLIER_LIGHT * bmr;
     }
     else if (user.activity_level == "Moderate") {
-        activity_multiplier = 1.55;
+        return ACTIVITY_MULTIPLIER_MODERATE * bmr;
     }
     else if (user.activity_level == "Active") {
-        activity_multiplier = 1.725;
+        return ACTIVITY_MULTIPLIER_ACTIVE * bmr;
     }
     else if (user.activity_level == "Very Active") {
-        activity_multiplier = 1.9;
+        return ACTIVITY_MULTIPLIER_VERY_ACTIVE * bmr;
     }
 
-    return bmr * activity_multiplier;
+    return bmr * ACTIVITY_MULTIPLIER_DEFAULT;
 }
 
 float calculateTargetCalories(const User& user) {
@@ -48,19 +49,19 @@ Macros calculateMacros(const User& user, float totalCalories) {
 
     // Calculate macros based on user's goal
     if (user.goal == "Lose") {
-        protein = totalCalories * 0.35f / 4.0f;
-        fat = totalCalories * 0.30f / 9.0f;
-        carbs = totalCalories * 0.35f / 4.0f;
+        protein = totalCalories * CALORIES_MACRO_PROTEIN_LOSE / CALORIES_PER_GRAM_PROTEIN;
+        fat = totalCalories * CALORIES_MACRO_FAT_LOSE / CALORIES_PER_GRAM_FAT;
+        carbs = totalCalories * CALORIES_MACRO_CARBS_LOSE / CALORIES_PER_GRAM_CARBS;
     }
     else if (user.goal == "Gain") {
-        protein = totalCalories * 0.40f / 4.0f;
-        fat = totalCalories * 0.25f / 9.0f;
-        carbs = totalCalories * 0.35f / 4.0f;
+        protein = totalCalories * CALORIES_MACRO_PROTEIN_GAIN / CALORIES_PER_GRAM_PROTEIN;
+        fat = totalCalories * CALORIES_MACRO_FAT_GAIN / CALORIES_PER_GRAM_FAT;
+        carbs = totalCalories * CALORIES_MACRO_CARBS_GAIN / CALORIES_PER_GRAM_CARBS;
     }
     else {
-        protein = totalCalories * 0.25f / 4.0f;
-        fat = totalCalories * 0.30f / 9.0f;
-        carbs = totalCalories * 0.45f / 4.0f;
+        protein = totalCalories * CALORIES_MACRO_PROTEIN_MAINTENANCE / CALORIES_PER_GRAM_PROTEIN;
+        fat = totalCalories * CALORIES_MACRO_FAT_MAINTENANCE / CALORIES_PER_GRAM_FAT;
+        carbs = totalCalories * CALORIES_MACRO_CARBS_MAINTENANCE / CALORIES_PER_GRAM_CARBS;
     }
 
     // Initialize a Macros struct and set the values

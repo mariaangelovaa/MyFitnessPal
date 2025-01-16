@@ -1,5 +1,4 @@
-#ifndef CALORIE_CALCULATOR_H
-#define CALORIE_CALCULATOR_H
+#pragma once
 
 #include "User.h"
 #include "Macros.h"
@@ -12,5 +11,3 @@ float calculateTotalCalories(const User& user);
 float calculateTargetCalories(const User& user);
 
 Macros calculateMacros(const User& user, float totalCalories);
-
-#endif 

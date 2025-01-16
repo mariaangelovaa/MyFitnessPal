@@ -1,3 +1,5 @@
 mimi running 200 02.01.2025 
 mimi running 200 03.01.2025 
-
+mimi skating 430 2025-01-04
+mimi skiing 500 2025-01-04
+mimi skiing 550 2025-01-04

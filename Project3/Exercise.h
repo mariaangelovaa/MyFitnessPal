@@ -1,5 +1,5 @@
-#ifndef EXERCISE_H
-#define EXERCISE_H
+#pragma once
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <string>
 #include <fstream>
@@ -31,5 +31,3 @@ void deleteExercisesByDate(const std::string& username, const std::string& date,
 
 // Function to update an exercise in the file
 void updateExercise(const std::string& username, const Exercise& newExercise, const std::string& filename);
-
-#endif // EXERCISE_H

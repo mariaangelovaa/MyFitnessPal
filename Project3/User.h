@@ -1,5 +1,4 @@
-#ifndef USER_H
-#define USER_H
+#pragma once
 
 #include <string>
 #include <fstream>
@@ -21,7 +20,8 @@ struct User {
     std::string account_type;
 };
 
-void initUser(User& user, const std::string& uname, const std::string& pass, const std::string& gen, int ag, float h, float w, const std::string& activity, const std::string& g, float kgL, float kgG, const std::string& account);
+void initUser(User& user, const std::string& uname, const std::string& pass, const std::string& gen, 
+    int ag, float h, float w, const std::string& activity, const std::string& g, float kgL, float kgG, const std::string& account);
 
 bool registerUser(const std::string& filename, const User& newUser);
 
@@ -30,5 +30,3 @@ bool loginUser(const std::string& filename, const std::string& uname, const std:
 User getUserFromFile(const std::string& filename, const std::string& uname);
 
 bool updateUserPhysicalInfo(const std::string& filename, const std::string& uname);
-
-#endif
